@@ -1,6 +1,6 @@
 import boto3
 
-#print("SI")
+print("SI")
 
 #crear funcion  para listar tablas de dynamodb
 def listar_tablas():
