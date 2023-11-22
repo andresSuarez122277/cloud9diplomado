@@ -56,6 +56,12 @@ def eliminar_elementos(nombre_tabla, id):
     table.delete_item(Key={'id': id})
     print("Elemento eliminado exitosamente")
 
+#crear funcion para reconocer celebridad mediante imagen
+def reconocer_celebridad(imagen):
+    rekognition = boto3.client('rekognition')
+    response = rekognition.recognize_celebrities(Image={'Bytes': imagen})
+    print(response['CelebrityFaces'][0]['Name'])
+
 opcion = 1
 
 while opcion != 0:
@@ -65,6 +71,7 @@ while opcion != 0:
     print("3. Insertar un elemento a la tabla")
     print("4. Leer elementos de la tabla")
     print("5. Eliminar un elemento de la tabla")
+    print("6. Reconocer celebridad mediante imagen")
     print("0. Salir")
     opcion = int(input())
 
@@ -87,6 +94,11 @@ while opcion != 0:
         nombre_tabla = input("Ingrese el nombre de la tabla: ")
         iid = input("Ingrese el id: ")
         eliminar_elementos(nombre_tabla, iid)
+    elif opcion == 6:
+        #convertir imagen a bytes
+        with open('/home/ec2-user/environment/cloud9diplomado/imagen.jpg', 'rb') as f:
+            imagen = f.read()
+            reconocer_celebridad(imagen)
     elif opcion == 0:
         print("Saliendo...")
     else:
